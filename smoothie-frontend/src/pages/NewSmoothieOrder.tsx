@@ -7,9 +7,9 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { SmoothieSelect } from '../components/SmoothieSelect';
 import { useEffect, useState } from 'react';
-import { readExcelFile } from '../utils/excel_functions';
+import { readExcelFile } from '../utils/excelFunctions';
 import * as XLSX from 'xlsx';
-import { Ingredient, Smoothie } from '../models/main_models';
+import { Ingredient, Smoothie } from '../models/mainModels';
 
 
 const steps = ['Select Smoothies', 'Order Ingredients', 'Save Directions'];
@@ -24,6 +24,7 @@ export const NewSmoothieOrder = (props:any) => {
 
     const handleSetSelectedSmoothies = (newSmoothies:any) => {
         setSelectedSmoothies(newSmoothies)
+        console.log(newSmoothies)
     }
 
 
@@ -37,7 +38,7 @@ export const NewSmoothieOrder = (props:any) => {
 
 
     function reformatSmoothies(smoothies:any) {
-        return smoothies.map(smoothie => {
+        return smoothies.map((smoothie, index) => {
             const ingredients = [];
             let i = 1;
     
@@ -51,6 +52,7 @@ export const NewSmoothieOrder = (props:any) => {
             }
     
             return {
+                smoothie_id: index, 
                 smoothie_name: smoothie.smoothie_name,
                 ingredients: ingredients
             };

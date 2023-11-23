@@ -7,5 +7,6 @@ export interface Ingredient {
 
 export interface Smoothie {
     smoothie_name: string;
+    smoothie_id: number;
     ingredients: Ingredient[];
 }
