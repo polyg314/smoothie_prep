@@ -1,6 +1,7 @@
 import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { Tooltip } from '@mui/material';
+import { calculateTotalIngredients } from '../utils/miscFunctions';
 
 
 export const OrderIngredients = (props: any) => {
@@ -15,20 +16,7 @@ export const OrderIngredients = (props: any) => {
 
 
 
-    function calculateTotalIngredients(smoothies) {
-        const totals = {};
 
-        smoothies.forEach(smoothie => {
-            smoothie.ingredients.forEach(ingredient => {
-                if (!totals[ingredient.ingredient_name]) {
-                    totals[ingredient.ingredient_name] = 0;
-                }
-                totals[ingredient.ingredient_name] += ingredient.ingredient_weight * smoothie.count;
-            });
-        });
-
-        return totals;
-    }
 
     function calculatePurchases(totalIngredients, ingredients) {
 
@@ -147,27 +135,6 @@ export const OrderIngredients = (props: any) => {
 
         ]
 
-        // const columns: GridColDef[] = [
-        //     { field: 'id', headerName: 'ID', width: 90, hide: true},
-        //     {
-        //         field: 'ingredient_name',
-        //         headerName: 'Ingredient',
-        //         width: 400,
-        //         editable: false,
-        //     },
-        //     {
-        //         field: 'count',
-        //         headerName: 'Quantity Needed',
-        //         width: 200,
-        //         editable: false,
-        //     },
-        //     // {
-        //     //     field: 'ingredient_type',
-        //     //     headerName: 'Ingredient Type',
-        //     //     width: 150,
-        //     //     editable: false,
-        //     // },
-        // ]
         return columns
     }
     var getRows = () => {

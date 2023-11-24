@@ -78,7 +78,7 @@ export const SmoothieSelect = (props:any) => {
                                 <Typography variant="body2" color="text.secondary" key={idx}
                                     style={{textAlign: "left"}}
                                 >
-                                    {ingredient.ingredient_display}
+                                    {ingredient.ingredient_display + " " + ingredient.ingredient_name}
                                 </Typography>
                             ))}
                         </CardContent>

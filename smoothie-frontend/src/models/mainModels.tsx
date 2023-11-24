@@ -3,6 +3,7 @@ export interface Ingredient {
     ingredient_name: string;
     ingredient_weight: number;
     ingredient_display: string;
+    
 }
 
 export interface Smoothie {

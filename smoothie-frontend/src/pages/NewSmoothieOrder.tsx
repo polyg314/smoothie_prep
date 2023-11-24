@@ -11,9 +11,10 @@ import { readExcelFile } from '../utils/excelFunctions';
 import * as XLSX from 'xlsx';
 import { Ingredient, Smoothie } from '../models/mainModels';
 import { OrderIngredients } from '../components/OrderIngredients';
+import { PreparationDirections } from '../components/PreparationDirections';
 
 
-const steps = ['Select Smoothies', 'Order Ingredients', 'Save Directions'];
+const steps = ['Select Smoothies', 'Order Ingredients', 'Preparation Directions'];
 
 
 export const NewSmoothieOrder = (props:any) => {
@@ -171,9 +172,13 @@ export const NewSmoothieOrder = (props:any) => {
                     </>
                 }   
 
-                {steps[activeStep] === "Save Directions" && 
+                {steps[activeStep] === "Preparation Directions" && 
                     <>
-                    Save Directions
+                        <PreparationDirections
+                        // allSmoothies={allSmoothies}
+                            selectedSmoothies={selectedSmoothies}
+                            allIngredients={allIngredients}
+                        ></PreparationDirections>
                     </>
                 }   
               
