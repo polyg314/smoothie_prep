@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react';
 import { readExcelFile } from '../utils/excelFunctions';
 import * as XLSX from 'xlsx';
 import { Ingredient, Smoothie } from '../models/mainModels';
+import { OrderIngredients } from '../components/OrderIngredients';
 
 
 const steps = ['Select Smoothies', 'Order Ingredients', 'Save Directions'];
@@ -162,7 +163,11 @@ export const NewSmoothieOrder = (props:any) => {
 
                 {steps[activeStep] === "Order Ingredients" && 
                     <>
-                    Order Ingredients
+                        <OrderIngredients
+                        // allSmoothies={allSmoothies}
+                            selectedSmoothies={selectedSmoothies}
+                            allIngredients={allIngredients}
+                        ></OrderIngredients>
                     </>
                 }   
 

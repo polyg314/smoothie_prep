@@ -41,6 +41,7 @@ export const SmoothieSelect = (props:any) => {
 
     return(
         <>
+        <h3>SELECT SMOOTHIES</h3>
         <Grid container spacing={2} style={{padding: "20px 10px"}}>
             {props.selectedSmoothies.map((smoothie: any, index: number) => (
                 <Grid item xs={12} sm={6} md={4} lg={3} key={smoothie.smoothie_id} style={{ display: 'flex' }}>
