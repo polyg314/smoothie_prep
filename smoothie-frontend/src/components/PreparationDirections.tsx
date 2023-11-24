@@ -117,7 +117,7 @@ export const PreparationDirections = (props: any) => {
                 onClick={handleDownload}
                 variant='outlined'
                 color='secondary'
-                style={{position: 'absolute', right: 0, top: 20}}
+                style={{position: 'absolute', right: 0, top: 16}}
                 >
                 Download as Excel
             </Button>
