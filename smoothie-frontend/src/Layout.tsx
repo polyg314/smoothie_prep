@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { AppBar, Toolbar, IconButton, Drawer, List, ListItem, ListItemIcon, ListItemText, Box } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 import { Typography } from '@mui/material';
 import { APP_NAME } from './utils/constants';
+import InfoIcon from '@mui/icons-material/Info';
+
 
 export const Layout = (props:any) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -29,14 +29,14 @@ export const Layout = (props:any) => {
       <Drawer open={drawerOpen} onClose={toggleDrawer}>
         <List>
           {/* Add list items for your menu here */}
-          <ListItem button>
-            <ListItemIcon><InboxIcon /></ListItemIcon>
-            <ListItemText primary="Inbox" />
+          <ListItem button onClick={toggleDrawer}>
+            <ListItemIcon><InfoIcon /></ListItemIcon>
+            <ListItemText primary="How to use this app" />
           </ListItem>
-          <ListItem button>
+          {/* <ListItem button>
             <ListItemIcon><MailIcon /></ListItemIcon>
             <ListItemText primary="Mail" />
-          </ListItem>
+          </ListItem> */}
         </List>
       </Drawer>
       <Box component="main" flexGrow={1} style={{padding: 20}}>

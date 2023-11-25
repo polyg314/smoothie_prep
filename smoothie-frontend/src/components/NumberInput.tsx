@@ -84,6 +84,7 @@ const StyledInput = styled('input')(
   font-family: inherit;
   font-weight: 400;
   line-height: 1.375;
+ 
   color: ${theme.palette.mode === 'dark' ? grey[300] : grey[900]};
   background: ${theme.palette.mode === 'dark' ? grey[900] : '#fff'};
   border: 1px solid ${theme.palette.mode === 'dark' ? grey[700] : grey[200]};
@@ -92,7 +93,7 @@ const StyledInput = styled('input')(
   };
   border-radius: 8px;
   margin: 0 8px;
-  padding: 10px 12px;
+  padding: 4px 0px;
   outline: 0;
   min-width: 0;
   width: 4rem;

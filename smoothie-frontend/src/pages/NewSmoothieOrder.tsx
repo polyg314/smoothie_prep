@@ -157,6 +157,7 @@ export const NewSmoothieOrder = (props:any) => {
                         <SmoothieSelect
                             allSmoothies={allSmoothies}
                             selectedSmoothies={selectedSmoothies}
+                            allIngredients={allIngredients}
                             handleSetSelectedSmoothies={handleSetSelectedSmoothies}
                         ></SmoothieSelect>
                     </>
@@ -185,7 +186,7 @@ export const NewSmoothieOrder = (props:any) => {
               </Box>
               <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
                 <Button
-                  color="inherit"
+                  color="secondary"
                   disabled={activeStep === 0}
                   onClick={handleBack}
                   sx={{ mr: 1 }}
@@ -193,10 +194,13 @@ export const NewSmoothieOrder = (props:any) => {
                   Back
                 </Button>
                 <Box sx={{ flex: '1 1 auto' }} />
-                <Button onClick={handleNext} sx={{ mr: 1 }}>
+                <Button 
+                    onClick={handleNext}
+                    disabled={steps[activeStep] === "Preparation Directions"} 
+                    sx={{ mr: 1 }}>
                   Next
                 </Button>
-                {activeStep !== steps.length &&
+                {/* {activeStep !== steps.length &&
                   (completed[activeStep] ? (
                     <Typography variant="caption" sx={{ display: 'inline-block' }}>
                       Step {activeStep + 1} already completed
@@ -207,7 +211,7 @@ export const NewSmoothieOrder = (props:any) => {
                         ? 'Finish'
                         : 'Complete Step'}
                     </Button>
-                  ))}
+                  ))} */}
               </Box>
             </React.Fragment>
           )}
