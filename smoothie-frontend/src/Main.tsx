@@ -5,7 +5,10 @@ import Layout from './Layout';
 function Main(props: any) {
 
     return (
-        <Layout>
+        <Layout
+            handleSignOut={props.handleSignOut}
+            handleCredential={props.handleCredential}
+        >
         <>
             
             <Router>

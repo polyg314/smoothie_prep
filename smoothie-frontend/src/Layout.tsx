@@ -4,7 +4,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { Typography } from '@mui/material';
 import { APP_NAME } from './utils/constants';
 import InfoIcon from '@mui/icons-material/Info';
-
+import { GoogleLogin } from '@react-oauth/google';
 
 export const Layout = (props:any) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -24,6 +24,19 @@ export const Layout = (props:any) => {
             <Typography variant="h6" component="div" sx={{ flexGrow: 1, textAlign: 'center', fontWeight: 'bold' }}>
             {APP_NAME}
             </Typography>
+            <div style={{position:"absolute", right: 10, top: 10}}>
+            <GoogleLogin
+                    text="signin"
+                    onSuccess={credentialResponse => {
+                      console.log(credentialResponse)
+                      props.handleCredential(credentialResponse["credential"])
+                    }}
+                    onError={() => {
+                      console.log('Login Failed');
+                    }}
+                    useOneTap
+                  />
+            </div>
         </Toolbar>
         </AppBar>
       <Drawer open={drawerOpen} onClose={toggleDrawer}>
