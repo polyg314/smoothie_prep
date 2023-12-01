@@ -8,16 +8,20 @@ function Main(props: any) {
         <Layout
             handleSignOut={props.handleSignOut}
             handleCredential={props.handleCredential}
+            isSignedIn={props.isSignedIn}
+            user={props.user}
+            loginLoading={props.loginLoading}
+
         >
-        <>
-            
-            <Router>
-                <Routes>
-                    <Route path="/" element={<NewSmoothieOrder />} />
-                </Routes>
-            </Router>
-            
-        </>
+            <>
+
+                <Router>
+                    <Routes>
+                        <Route path="/" element={<NewSmoothieOrder />} />
+                    </Routes>
+                </Router>
+
+            </>
         </Layout>
     )
 }

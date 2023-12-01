@@ -2,20 +2,19 @@ import axios from "axios"
 import { axiosConfig, API_URL } from "../utils/constants"
 
 async function checkUser(userInfo:any, jwt) {
-    axiosConfig["Authorization"] = jwt
-
+    axiosConfig["Authorization"] = 'Bearer $' + jwt
+    console.log("AUUU")
+    console.log(axiosConfig["Authorization"])
     try {
        let res = await axios({
-            url: API_URL + '/check/staff_new',
+            url: API_URL + '/check-user',
             method: 'post',
             data: userInfo,
             timeout: 8000,
             headers: axiosConfig
         })
         if(res.status === 200){
-            if(Object.is(res.data.permissions, null)){
-                res.data.permissions = []
-            }
+            console.log(res)
             return res
         }    
         return "Noooo"
