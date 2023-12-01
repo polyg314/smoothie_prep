@@ -20,7 +20,9 @@ function App() {
   useEffect(() => {
     // if credential saved in cookies, load so user doesnt have to sign in again 
     console.log("HOOOKIE?")
+    console.log(cookies)
     if (Object.keys(cookies).includes("credential")) {
+
       handleCredential(cookies["credential"])
     }else{
       setLoginLoading(false)
@@ -29,10 +31,12 @@ function App() {
 
   const handleCredential = (credential) => {
     if (credential) {
-      console.log(cookies["jwt"])
+      console.log("CRED")
       checkUser({
         token: credential
       }, cookies["jwt"]).then(backendRes => {
+        console.log("HE RES")
+        console.log(backendRes)
         try {
           setLoginLoading(false)
           if (backendRes["data"]["Success"]) {
@@ -65,6 +69,8 @@ function App() {
           setUser({})
         }
       })
+    }else{
+      setLoginLoading(false)
     }
 
   }

@@ -8,11 +8,15 @@ import { GoogleLogin } from '@react-oauth/google';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import CircularProgress from '@mui/material/CircularProgress';
+import { useNavigate } from 'react-router-dom';
 
 
 export const Layout = (props: any) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
+
+  let navigate = useNavigate();
+
 
   const toggleDrawer = () => {
     setDrawerOpen(!drawerOpen);
@@ -42,6 +46,10 @@ export const Layout = (props: any) => {
     handleClose();
   };
 
+  const handleNavigate = (route) => {
+    navigate(route);
+    return 
+  }
   console.log(props)
 
   return (
@@ -117,6 +125,12 @@ export const Layout = (props: any) => {
               <ListItemIcon><InfoIcon /></ListItemIcon>
               <ListItemText primary="How to use this app" />
             </ListItem>
+            {JSON.parse(process.env.REACT_APP_LEADERSHIP).includes(props.user.email) && 
+                <ListItem button onClick={(e) => handleNavigate("/smoothie-data")}>
+                <ListItemIcon><InfoIcon /></ListItemIcon>
+                <ListItemText primary="Smoothie Data MGMT" />
+              </ListItem>
+}
             {/* <ListItem button>
             <ListItemIcon><MailIcon /></ListItemIcon>
             <ListItemText primary="Mail" />
