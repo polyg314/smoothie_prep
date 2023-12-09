@@ -1,6 +1,34 @@
 
 import helper_functions as hf
 
+
+
+def add_ingredient_type(conn, ingredient_type_info):
+    """Create ingredient_type"""
+    try:
+        sql = f"""INSERT INTO ingredient_type(
+            ingredient_type,
+            status
+        )
+        VALUES (
+            %(ingredient_type)s,
+            'ACTIVE'
+        )
+        RETURNING ingredient_type_id;
+        """
+        cur = conn.cursor()
+        cur.execute(sql, ingredient_type_info)
+        ingredient_type_id = cur.fetchone()[0]
+        conn.commit()
+
+        return {'Success': True, 'Data': ingredient_type_id}
+
+    except Exception as ex:
+        conn.rollback()  # Rollback the transaction
+        print(f"Exception: {ex}")  # Log the exception for debugging
+        return {'Success': False, 'Exception': str(ex), 'Data': []}
+
+
 def read_user_by_google_id(conn, google_id):
     """Query user by google id
     """

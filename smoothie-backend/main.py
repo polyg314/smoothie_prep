@@ -8,6 +8,7 @@ from google.auth.transport import requests
 import queries as q
 from datetime import datetime, timedelta
 import jwt
+import helper_functions as hf
 
 
 app = Flask(__name__)
@@ -28,9 +29,6 @@ def create_connection():
     )
     return connection
 
-
-
-
 @app.route('/', methods=['GET'])
 def get_home_info():
     try:
@@ -43,6 +41,7 @@ def get_home_info():
         return str(error)
 
 
+
 @app.route('/check-user', methods=['POST'])
 def check_user():
     print(f'CHECK USER---------')
@@ -51,11 +50,11 @@ def check_user():
         encoded_jwt = str(request.authorization)
         ## make sure jwt hasnt expired
         token_exp = False
-        token = encoded_jwt.replace('Bearer $', '')
-        if(len(token) > 10): 
+        stripped_jwt = encoded_jwt.replace('Bearer $', '')
+        if(len(stripped_jwt) > 10): 
             try:
                 # Decode JWT
-                decoded_jwt = jwt.decode(token, os.getenv('BE_SECRET'), algorithms=["HS256"])
+                decoded_jwt = jwt.decode(stripped_jwt, os.getenv('BE_SECRET'), algorithms=["HS256"])
                 expires_timestamp = float(decoded_jwt["expires"])  # Convert string to float
                 expires_datetime = datetime.fromtimestamp(expires_timestamp)
                 if datetime.now() >= expires_datetime:
@@ -94,25 +93,46 @@ def check_user():
                 data = {
                     'Success': True,
                     'user_id': q_data['Data'],
-                    'jwt': newjwt,
+                    'jwt': newjwt.decode('utf-8'),
                 }
-                return jsonify(data)
+                return data
             else:
                 data = q_data['Data']
                 data["Success"] = False
-                return jsonify(data)
+                return data
         else:
             data = {
                 'Success': True,
                 'user_id': data[0]['user_id'],
-                'jwt': newjwt,
+                'jwt':newjwt.decode('utf-8'),
             }
-        return jsonify(data)
+        return data
     except Exception as ex:
-        return {'Success': False,
-                'Exception': ex}
+        return jsonify({'Success': False, 'Exception': str(ex)})
         
 
+
+@app.route('/add-ingredient-type', methods=['POST'])
+def add_ingredient_type():
+    print(f'ADD INGREDIENT TYPE---------')
+    try: 
+        if(hf.check_auth(request)):
+            req_obj = request.json
+            conn = create_connection()
+            print(req_obj)
+            ingredient_type_id = q.add_ingredient_type(conn, req_obj)
+            return {'Success': True, 
+                    'ingredient_type_id': ingredient_type_id
+                    }
+            
+        else: 
+            return {'Success': False} 
+
+
+    except Exception as ex:
+        return jsonify({'Success': False,
+                'Exception': ex})
+    
 
 
 if __name__ == '__main__':

@@ -9,11 +9,13 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useNavigate } from 'react-router-dom';
+import { useUser } from './contexts/userContext';
 
 
 export const Layout = (props: any) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
+  const { user  } = useUser();
 
   let navigate = useNavigate();
 
@@ -48,9 +50,10 @@ export const Layout = (props: any) => {
 
   const handleNavigate = (route) => {
     navigate(route);
+    toggleDrawer()
     return 
   }
-  console.log(props)
+
 
   return (
     <>
@@ -81,11 +84,11 @@ export const Layout = (props: any) => {
                 </div>
               }
 
-              {props.isSignedIn && !props.loginLoading &&
+              {props.isSignedIn && !props.loginLoading && user && 
 
                 <div>
 
-                  <Avatar alt={props.user.firstName} onClick={handleMenu} src={props.user.photo} />
+                  <Avatar alt={user.firstName} onClick={handleMenu} src={user.photo} />
                   <Menu
                     id="menu-appbar"
                     anchorEl={anchorEl}
@@ -121,20 +124,23 @@ export const Layout = (props: any) => {
         <Drawer open={drawerOpen} onClose={toggleDrawer}>
           <List>
             {/* Add list items for your menu here */}
-            <ListItem button onClick={toggleDrawer}>
+            <ListItem button onClick={(e) => handleNavigate("/")}>
               <ListItemIcon><InfoIcon /></ListItemIcon>
               <ListItemText primary="How to use this app" />
             </ListItem>
-            {JSON.parse(process.env.REACT_APP_LEADERSHIP).includes(props.user.email) && 
+            {user && 
+            <>
+            
+            {JSON.parse(process.env.REACT_APP_LEADERSHIP).includes(user.email) && 
                 <ListItem button onClick={(e) => handleNavigate("/smoothie-data")}>
                 <ListItemIcon><InfoIcon /></ListItemIcon>
                 <ListItemText primary="Smoothie Data MGMT" />
               </ListItem>
+
 }
-            {/* <ListItem button>
-            <ListItemIcon><MailIcon /></ListItemIcon>
-            <ListItemText primary="Mail" />
-          </ListItem> */}
+</>
+}
+            
           </List>
         </Drawer>
         <Box component="main" flexGrow={1} style={{ padding: 20 }}>
